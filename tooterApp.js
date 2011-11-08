@@ -30,6 +30,25 @@
     });
     
     Tooter.Toots = Backbone.Collection.extend({
-        model: Tooter.Toot
+        model: Tooter.Toot,
+        
+        url: '/toots/'
+    });
+    
+    Tooter.TootView = Backbone.View.extend({
+        tagName: 'li',
+        
+        initialize: function(options) {
+            _.defaults({
+                parentElt: 'body'
+            });
+        },
+        
+        render: function() {
+            var model = this.model;
+            
+            $(this.el).html(model.get('user') + ': ' + model.get('message'));
+            $(this.options.parentElt).append(this.el);
+        }
     });
 })();
