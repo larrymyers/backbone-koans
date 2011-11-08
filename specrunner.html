@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Backbone Koans</title>
+    <link href="ext/jasmine.css" media="all" rel="stylesheet" type="text/css"/>
+    
+    <script type="text/javascript" src="ext/jquery.js"></script>
+    <script type="text/javascript" src="ext/underscore.js"></script>
+    <script type="text/javascript" src="ext/backbone.js"></script>
+    <script type="text/javascript" src="ext/backbone.localStorage.js"></script>
+    
+    <script type="text/javascript" src="ext/jasmine.js"></script>
+    <script type="text/javascript" src="ext/jasmine-html.js"></script>
+    
+    <script type="text/javascript" src="koans/aboutEvents.js"></script>
+</head>
+<body>
+    <script type="text/javascript">
+    var reporter = new jasmine.TrivialReporter();
+    
+    $(document).ready(function(evt) {
+        jasmine.getEnv().addReporter(reporter);
+        jasmine.getEnv().execute();
+    });
+    </script>
+</body>
+</html>
