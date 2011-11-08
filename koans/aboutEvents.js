@@ -1,4 +1,5 @@
 describe('About Backbone.Events', function() {
+    
     var obj = {};
     _.extend(obj, Backbone.Events);
     
@@ -104,4 +105,5 @@ describe('About Backbone.Events', function() {
         // FIX ME remove the .not to fail
         expect(spy1).not.toHaveBeenCalled();
     });
+    
 });
