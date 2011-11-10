@@ -27,8 +27,7 @@ describe('About Backbone.View', function() {
         tootView = new Tooter.TootView({ parentElt: '#tootList', model: toot });
         tootView.render();
         
-        expect($('#tootList').children().length).toBe(1);
-        expect($('#tootList').children().first().html()).toBe('Mario: Squishing Goombas, collecting coins.');
+        expect($('#tootList').find('.toot').length).toBe(1);
         
         $('#tootList').remove();
     });

@@ -46,8 +46,12 @@
         
         render: function() {
             var model = this.model;
+            var content = _.template($('#tootViewTmpl').html())({
+                iconUrl: '',
+                message: this.model.get('message')
+            });
             
-            $(this.el).html(model.get('user') + ': ' + model.get('message'));
+            $(this.el).html(content);
             $(this.options.parentElt).append(this.el);
         }
     });
