@@ -39,7 +39,8 @@
         tagName: 'li',
         
         initialize: function(options) {
-            _.defaults({
+            this.options = options || {};
+            _.defaults(this.options, {
                 parentElt: 'body'
             });
         },
@@ -59,7 +60,14 @@
     Tooter.TootApp = Backbone.View.extend({
         
         initialize: function(options) {
+            this.options = options || {};
+            _.defaults(this.options, {
+                parentElt: 'body'
+            });
             
+            this.markup = _.template($('#tooterAppTmpl').html());
+            $(this.options.parentElt).append(this.el);
+            $(this.el).append(this.markup());
         },
         
         render: function() {
