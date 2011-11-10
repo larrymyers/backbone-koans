@@ -21,10 +21,17 @@
 </head>
 <body>
     <script type="text/template" id="tooterAppTmpl">
-        <div></div>
+        <div>
+            <input class="tootInput" type="text"/>
+            <ul class="tootList"></ul>
+        </div>
     </script>
     
     <script type="text/template" id="tootViewTmpl">
+        <span class="toot">
+            <img src="<%= iconUrl %>"/></td>
+            <span><%= message %></span>
+        </span>
     </script>
     
     <script type="text/javascript">

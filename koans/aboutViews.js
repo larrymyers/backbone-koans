@@ -5,26 +5,35 @@ describe('About Backbone.View', function() {
         tootView.remove();
     });
     
-    it('Should be backed by a DOM element when created, based off the property provided.', function() {
+    it('Should be tied to a DOM element when created, based off the property provided.', function() {
         tootView = new Tooter.TootView();
         
         // FIX ME change toBe('li') to toBe('change-me') to fail it
         expect(tootView.el.tagName.toLowerCase()).toBe('li');
     });
     
-    it('Is backed by a Toot model instance, which provides the data.', function() {
+    it('Is backed by a model instance, which provides the data.', function() {
+        tootView = new Tooter.TootView({ model: new Tooter.Toot() });
         
+        expect(tootView.model).toBeDefined();
+        expect(tootView.model.get('user')).toBe('Mario');
     });
     
-    it('Can render itself and be visible in the DOM.', function() {
+    it('Can render, after which the DOM representation of the view will be visible.', function() {
         $('body').append('<ul id="tootList"></ul>');
         
-        tootView = new Tooter.TootView({ parentElt: '#tootList', model: new Tooter.Toot() });
+        var toot = new Tooter.Toot();
+        
+        tootView = new Tooter.TootView({ parentElt: '#tootList', model: toot });
         tootView.render();
         
         expect($('#tootList').children().length).toBe(1);
-        
+        expect($('#tootList').children().first().html()).toBe('Mario: Squishing Goombas, collecting coins.');
         
         $('#tootList').remove();
+    });
+    
+    it('Can use an events hash to wire up view methods to DOM elements.', function() {
+        // TODO example using TootApp view to show how to test events hash
     });
 });

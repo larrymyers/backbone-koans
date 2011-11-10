@@ -51,4 +51,15 @@
             $(this.options.parentElt).append(this.el);
         }
     });
+    
+    Tooter.TootApp = Backbone.View.extend({
+        
+        initialize: function(options) {
+            
+        },
+        
+        render: function() {
+            
+        }
+    });
 })();
