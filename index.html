@@ -26,6 +26,7 @@
     
     <script type="text/javascript">
     $(document).ready(function(evt) {
+        Backbone.localStorageDB = new Store('toots');
         App = new Tooter.TootApp();
     });
     </script>

@@ -59,6 +59,12 @@
     
     Tooter.TootApp = Backbone.View.extend({
         
+        events: {
+            'keypress .tootInput': 'createToot'
+        },
+        
+        toots: new Tooter.Toots(),
+        
         initialize: function(options) {
             this.options = options || {};
             _.defaults(this.options, {
@@ -68,10 +74,35 @@
             this.markup = _.template($('#tooterAppTmpl').html());
             $(this.options.parentElt).append(this.el);
             $(this.el).append(this.markup());
+            
+            this.toots.bind('add', this.addToot, this);
+            this.toots.bind('reset', function(toots) {
+                toots.each(function(toot) {
+                    this.addToot(toot);
+                }, this);
+            }, this);
+            
+            this.toots.fetch();
         },
         
-        render: function() {
+        addToot: function(toot) {
+            var view = new Tooter.TootView({
+                parentElt: this.$('.tootList'),
+                model: toot
+            }).render();
+        },
+        
+        createToot: function(evt) {
+            var text = this.$('.tootInput').val();
             
+            if (!text || evt.keyCode !== 13) {
+                return;
+            }
+            
+            this.toots.create({
+                user: 'Me',
+                message: text
+            });
         }
     });
 })();
