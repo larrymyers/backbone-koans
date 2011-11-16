@@ -6,38 +6,37 @@ describe('About Backbone.Collection', function() {
         
         toots.add({ user: 'Wario', message: "I'm a gonna win!"});
         
-        expect(toots.length).toBe(1);
+        expect(toots.length).toBe(0);
         
         toots.add([
             { user: 'Peach', message: 'Waiting for Luigi.'}, 
-            { user: 'Koopa Troopa', message: '...' }]);
+            { user: 'Koopa Troopa', message: '...' }
+        ]);
         
-        expect(toots.length).toBe(3);
+        expect(toots.length).toBe(0);
     });
     
     it('Can have a url property to define the basic url structure for all contained models.', function() {
         var toots = new Tooter.Toots();
         
-        expect(toots.url).toBe('/toots/');
+        expect(toots.url).toBe('what goes here?');
     });
     
     it('Fires custom named events when the models change.', function() {
         var toots = new Tooter.Toots();
         
-        var spyOnAdd = jasmine.createSpy();
-        toots.bind('add', spyOnAdd);
+        var addCallback = jasmine.createSpy('add callback');
+        toots.bind('add', addCallback);
         
-        // FIX ME remove this line to fail
-        toots.add({ user: 'Hammer Bros', message: 'Sharing an account is not cool.'});
+        // How would you get the 'add' event to trigger?
         
-        expect(spyOnAdd).toHaveBeenCalled();
+        expect(addCallback).toHaveBeenCalled();
         
-        var spyOnRemove = jasmine.createSpy();
-        toots.bind('remove', spyOnRemove);
+        var removeCallback = jasmine.createSpy('remove callback');
+        toots.bind('remove', removeCallback);
         
-        // FIX ME remove this line to fail
-        toots.remove(toots.at(0));
+        // How would you get the 'remove' callback to trigger?
         
-        expect(spyOnRemove).toHaveBeenCalled();
+        expect(removeCallback).toHaveBeenCalled();
     });
 });
