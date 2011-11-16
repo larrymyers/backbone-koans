@@ -3,8 +3,8 @@ describe('About Backbone.Model', function() {
     it('Can be created with default values for its attributes.', function() {
         var toot = new Tooter.Toot();
         
-        expect(toot.get('user')).toBe('Mario');
-        expect(toot.get('message')).toBe('Squishing Goombas, collecting coins.');
+        expect(toot.get('user')).toBe('Some default name.');
+        expect(toot.get('message')).toBe('Some default message.');
         expect(toot.get('created_on').getTime).toBeDefined();
     });
     
@@ -13,7 +13,7 @@ describe('About Backbone.Model', function() {
         
         var toot = new Tooter.Toot({ user: 'Luigi', created_on: now });
         
-        expect(toot.get('user')).toBe('Luigi');
+        expect(toot.get('user')).toBe('Mario');
         expect(toot.get('message')).toBe('Squishing Goombas, collecting coins.');
         expect(toot.get('created_on')).toBe(now);
     });
@@ -21,8 +21,7 @@ describe('About Backbone.Model', function() {
     it('Will call a custom initialize function on the model instance when created.', function() {
         var toot = new Tooter.Toot({ user: 'toad' });
         
-        // FIX ME change to 'toad' to fail it
-        expect(toot.get('user')).toBe('Toad');
+        expect(toot.get('user')).toBe('toad');
     });
     
     it('Fires a custom event when the state changes.', function() {
@@ -32,23 +31,21 @@ describe('About Backbone.Model', function() {
         
         toot.bind('change', spy);
         
-        // FIX ME remove this line to fail it.
-        toot.set({ 'message': 'Looking for a tanooki suit!' });
+        // How would you update a property on the toot here?
         
         expect(spy).toHaveBeenCalled();
     });
     
     it('Can contain custom validation rules, and will trigger an error event on failed validation.', function() {
-        var spy = jasmine.createSpy();
+        var errorCallback = jasmine.createSpy();
         
         var toot = new Tooter.Toot();
         
-        toot.bind('error', spy);
+        toot.bind('error', errorCallback);
         
-        // FIX ME remove this line to fail it.
-        toot.set({ 'message': '' });
+        // How would you set an invalid message on the toot?
         
-        var errorArgs = spy.mostRecentCall.args;
+        var errorArgs = errorCallback.mostRecentCall.args;
         
         expect(errorArgs[0]).toBe(toot);
         expect(errorArgs[1]).toBe('Must contain a message.');
