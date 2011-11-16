@@ -1,7 +1,7 @@
+/*global $, _, Backbone */
+
 (function() {
-    window.Tooter = {};
-    
-    Tooter.Toot = Backbone.Model.extend({
+    var Toot = Backbone.Model.extend({
         defaults: function() {
             return {
                 user: 'Mario',
@@ -29,13 +29,13 @@
         }
     });
     
-    Tooter.Toots = Backbone.Collection.extend({
-        model: Tooter.Toot,
+    var Toots = Backbone.Collection.extend({
+        model: Toot,
         
         url: '/toots/'
     });
     
-    Tooter.TootView = Backbone.View.extend({
+    var TootView = Backbone.View.extend({
         tagName: 'li',
         
         initialize: function(options) {
@@ -57,13 +57,13 @@
         }
     });
     
-    Tooter.TootApp = Backbone.View.extend({
+    var TootApp = Backbone.View.extend({
         
         events: {
             'keypress .tootInput': 'createToot'
         },
         
-        toots: new Tooter.Toots(),
+        toots: new Toots(),
         
         initialize: function(options) {
             this.options = options || {};
@@ -86,7 +86,7 @@
         },
         
         addToot: function(toot) {
-            var view = new Tooter.TootView({
+            var view = new TootView({
                 parentElt: this.$('.tootList'),
                 model: toot
             }).render();
@@ -105,4 +105,11 @@
             });
         }
     });
+    
+    window.Tooter = {
+        Toot: Toot,
+        Toots: Toots,
+        TootView: TootView,
+        TootApp: TootApp
+    };
 })();
