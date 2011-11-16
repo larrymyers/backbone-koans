@@ -8,15 +8,14 @@ describe('About Backbone.View', function() {
     it('Should be tied to a DOM element when created, based off the property provided.', function() {
         tootView = new Tooter.TootView();
         
-        // FIX ME change toBe('li') to toBe('change-me') to fail it
-        expect(tootView.el.tagName.toLowerCase()).toBe('li');
+        expect(tootView.el.tagName.toLowerCase()).toBe('... tagName?');
     });
     
     it('Is backed by a model instance, which provides the data.', function() {
         tootView = new Tooter.TootView({ model: new Tooter.Toot() });
         
         expect(tootView.model).toBeDefined();
-        expect(tootView.model.get('user')).toBe('Mario');
+        expect(tootView.model.get('user')).toBe('who?');
     });
     
     it('Can render, after which the DOM representation of the view will be visible.', function() {
@@ -27,7 +26,7 @@ describe('About Backbone.View', function() {
         tootView = new Tooter.TootView({ parentElt: '#tootList', model: toot });
         tootView.render();
         
-        expect($('#tootList').find('.toot').length).toBe(1);
+        expect($('#tootList').find('.toot').length).toBe(0);
         
         $('#tootList').remove();
     });
