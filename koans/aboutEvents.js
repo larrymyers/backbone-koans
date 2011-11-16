@@ -10,25 +10,21 @@ describe('About Backbone.Events', function() {
     it('Can extend javascript objects to support custom events.', function() {
         var basicObject = {};
         
-        // FIXME comment out to cause failure
         _.extend(basicObject, Backbone.Events);
         
-        expect(basicObject.bind).toBeDefined();
-        expect(basicObject.unbind).toBeDefined();
-        expect(basicObject.trigger).toBeDefined();
+        expect(basicObject.bind).not.toBeDefined();
+        expect(basicObject.unbind).not.toBeDefined();
+        expect(basicObject.trigger).not.toBeDefined();
     });
     
     it('Allows us to bind and trigger custom named events on an object.', function() {
-        var called = false;
+        var callback = jasmine.createSpy();
         
-        obj.bind('basic event', function() {
-            called = true;
-        });
+        obj.bind('basic event', callback);
         
-        // FIX ME comment out to cause failure
-        obj.trigger('basic event');
+        // How would you cause the callback for this custom event to be called?
         
-        expect(called).toBe(true);
+        expect(callback).toHaveBeenCalled();
     });
     
     it('Also passes along any arguments to the callback when an event is triggered.', function() {
@@ -40,8 +36,7 @@ describe('About Backbone.Events', function() {
             }
         });
         
-        // FIX ME trigger one less arg to fail
-        obj.trigger('some event', 1, 2, 3);
+        obj.trigger('some event', 1, 2);
         
         expect(passedArgs.length).toBe(3);
     });
@@ -57,23 +52,19 @@ describe('About Backbone.Events', function() {
         
         obj.trigger('an event');
         
-        // FIX ME change to 'blue' to fail it
-        expect(foo.color).toBe('red');
+        expect(foo.color).toBe('blue');
     });
     
     it("Uses 'all' as a special event name to capture all events bound to the object.", function() {
-        var mySpy = jasmine.createSpy();
+        var callback = jasmine.createSpy();
         
-        obj.bind('all', mySpy);
+        obj.bind('all', callback);
         
         obj.trigger('foo');
         obj.trigger('bar');
         
-        // FIX ME change to 0 to fail it
-        expect(mySpy.callCount).toBe(2);
-        
-        // FIX ME change to undefined to fail it
-        expect(mySpy.mostRecentCall.args[0]).toBe('bar');
+        expect(callback.callCount).toBe(0);
+        expect(callback.mostRecentCall.args[0]).toBe(undefined);
     });
     
     it('Also can remove custom events from objects.', function() {
@@ -88,22 +79,19 @@ describe('About Backbone.Events', function() {
         obj.unbind('foo', spy1);
         obj.trigger('foo');
         
-        // FIX ME remove the .not to fail
-        expect(spy1).not.toHaveBeenCalled();
+        expect(spy1).toHaveBeenCalled();
         
         // We can unbind all callbacks tied to the event.
         obj.unbind('foo');
         obj.trigger('foo');
         
-        // FIX ME change to 2 to fail it
-        expect(spy2.callCount).toBe(1);
+        expect(spy2.callCount).toBe(2);
         
         // We can unbind all events bound to the object.
         obj.unbind();
         obj.trigger('bar');
         
-        // FIX ME remove the .not to fail
-        expect(spy1).not.toHaveBeenCalled();
+        expect(spy1).toHaveBeenCalled();
     });
     
 });
