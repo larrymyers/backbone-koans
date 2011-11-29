@@ -32,6 +32,7 @@ describe('About Backbone.Model', function() {
         toot.bind('change', spy);
         
         // How would you update a property on the toot here?
+        // Hint: http://documentcloud.github.com/backbone/#Model-set
         
         expect(spy).toHaveBeenCalled();
     });
