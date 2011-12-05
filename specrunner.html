@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Backbone Koans</title>
-    <link href="ext/jasmine.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="koansReporter.css" media="all" rel="stylesheet" type="text/css"/>
     
     <script type="text/javascript" src="ext/jquery.js"></script>
     <script type="text/javascript" src="ext/underscore.js"></script>
@@ -12,7 +12,7 @@
     <script type="text/javascript" src="tooterApp.js"></script>
     
     <script type="text/javascript" src="ext/jasmine.js"></script>
-    <script type="text/javascript" src="ext/jasmine-html.js"></script>
+    <script type="text/javascript" src="koansReporter.js"></script>
     
     <script type="text/javascript" src="koans/aboutEvents.js"></script>
     <script type="text/javascript" src="koans/aboutModels.js"></script>
@@ -20,6 +20,11 @@
     <script type="text/javascript" src="koans/aboutViews.js"></script>
 </head>
 <body>
+    <h1>Backbone Koans</h1>
+    
+    <div id="summary">
+    </div>
+    
     <script type="text/template" id="tooterAppTmpl">
         <div>
             <input class="tootInput" type="text"/>
@@ -35,7 +40,7 @@
     </script>
     
     <script type="text/javascript">
-    var reporter = new jasmine.TrivialReporter();
+    var reporter = new KoansReporter();
     
     $(document).ready(function(evt) {
         jasmine.getEnv().addReporter(reporter);
