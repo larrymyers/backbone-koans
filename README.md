@@ -2,9 +2,8 @@
 
 A set of jasmine powered koans for learning [Backbone.js](http://http://documentcloud.github.com/backbone).
 
-The koans verify behavior of a sample Tooter app, which allows people to make little 141 character Toots.
-
-(Because we all know that extra 141st character makes all the difference!)
+The koans verify behavior of a Todo list app, a modified version of the original Todos app
+created by [Jérôme Gravel-Niquet](http://jgn.me/).
 
 ## How to Run
 

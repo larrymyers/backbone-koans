@@ -1,3 +1,4 @@
+/* global $, _, Backbone */
 (function() {
     var TEMPLATE_URL = '';
     
@@ -64,7 +65,7 @@
         render: function() {
             var self = this;
             
-            $(self.el).template(TEMPLATE_URL + '/templates/item.html', self.model.toJSON(), function() {
+            $(self.el).empty().template(TEMPLATE_URL + '/templates/item.html', self.model.toJSON(), function() {
                 self.setText();
             });
             
@@ -144,7 +145,7 @@
                     remaining:  self.todos.remaining().length
                 };
             
-            $('#todo-stats').template(TEMPLATE_URL + '/templates/stats.html', data);
+            $('#todo-stats').empty().template(TEMPLATE_URL + '/templates/stats.html', data);
             
             return this;
         },

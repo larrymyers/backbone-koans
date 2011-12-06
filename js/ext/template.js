@@ -6,7 +6,7 @@
             callback = callback || function() {},
             html = template(data);
         
-        elt.html(html);
+        elt.append(html);
         callback();
     }
     
