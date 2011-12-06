@@ -8,8 +8,15 @@
     #spec_link {
         position: absolute;
         top: 20px;
-        left: 20px;
-        font-size: 18px;
+        right: 20px;
+        font-size: 22px;
+        color: #333;
+        text-decoration: none;
+    }
+    
+    #spec_link:hover {
+        color: #666;
+        text-decoration: underline;
     }
     </style>
 
@@ -21,7 +28,7 @@
     <script type="text/javascript" src="js/todos.js"></script>
 </head>
 <body>
-    <a id="spec_link" href="specrunner.html">To the Koans!</a>
+    <a id="spec_link" href="specrunner.html">To the Koans&nbsp;&#187;&nbsp;</a>
     <script type="text/javascript">
     $(document).ready(function(evt) {
         Backbone.localStorageDB = new Store('todos');
