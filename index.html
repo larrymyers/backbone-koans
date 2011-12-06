@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Backbone Demo: Todos</title>
+    <link href="css/todos.css" media="all" rel="stylesheet" type="text/css"/>
+
+    <script type="text/javascript" src="js/ext/jquery.js"></script>
+    <script type="text/javascript" src="js/ext/underscore.js"></script>
+    <script type="text/javascript" src="js/ext/template.js"></script>
+    <script type="text/javascript" src="js/ext/backbone.js"></script>
+    <script type="text/javascript" src="js/ext/backbone.localStorage.js"></script>
+    <script type="text/javascript" src="js/todos.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+    $(document).ready(function(evt) {
+        Backbone.localStorageDB = new Store('todos');
+        App = new TodoApp({ appendTo: $('body') });
+    });
+    </script>
+  </body>
+</html>
