@@ -18,7 +18,7 @@
             for (i = 0; i < suites.length; i++) {
                 suite = suites[i];
                 results = suite.results();
-                suiteHTML = '<div>' + suite.description + ': ' +  results.passedCount + ' of ' + results.totalCount + '</div>';
+                suiteHTML = '<li>' + suite.description + ': ' +  results.passedCount + ' of ' + results.totalCount + '</li>';
                 $(this.el).append(suiteHTML);
             }
             
@@ -53,9 +53,9 @@
                     spec = specs[j];
                     results = spec.results();
                     
-                    var specStyle = (results.failedCount > 0) ? 'failed' : 'passed';
+                    var specStyle = (results.failedCount > 0) ? 'alert-message block-message error' : 'alert-message block-message success';
                     
-                    specElt = this.make('div', {className: specStyle}, spec.description);
+                    specElt = this.make('div', {'class': specStyle}, spec.description);
                     $(this.el).append(specElt);
                     
                     if (results.failedCount > 0) {
