@@ -1,4 +1,25 @@
-(function($) {    
+(function($) {
+    function getFirstFailiureInfo(results) {
+        var items = results.getItems(),
+            item, i, message, stack;
+        
+        for (i = 0; i < items.length; i++) {
+            item = items[i];
+            
+            if (item.passed()) {
+                continue;
+            }
+            
+            message = item.message;
+            stack = /koans.+js:\d+/.exec(item.trace.stack);
+            stack = (stack.length > 0) ? stack[0] : 'No line no found.';
+            
+            return message + ' => ' + stack;
+        }
+        
+        return '';
+    }
+    
     var SummaryView = Backbone.View.extend({
         el: '#summary',
         
@@ -36,7 +57,7 @@
         render: function() {
             var runner = this.options.runner,
                 suites = runner.suites(),
-                suite, items, specs, spec, i, j, suiteElt, specElt;
+                suite, results, items, specs, spec, i, j, suiteElt, specElt;
             
             if (KoansFailure) {
                 return this;
@@ -49,16 +70,24 @@
                 suiteElt = this.make('h2', {}, suite.description);
                 $(this.el).append(suiteElt);
                 
+                results = suite.results();
+                
+                if (results.failedCount === 0) {
+                    $(suiteElt).after(this.make('div', {'class': 'alert-message success'}, 'All passed. Meditate, and be wise.'));
+                    return this;
+                }
+                
                 for (j = 0; j < specs.length; j++) {
                     spec = specs[j];
                     results = spec.results();
                     
                     var specStyle = (results.failedCount > 0) ? 'alert-message block-message error' : 'alert-message block-message success';
                     
-                    specElt = this.make('div', {'class': specStyle}, spec.description);
+                    specElt = this.make('div', {'class': specStyle}, '<strong>' + spec.description + '</strong>');
                     $(this.el).append(specElt);
                     
                     if (results.failedCount > 0) {
+                        $(specElt).append('<p>' + getFirstFailiureInfo(results) + '</p>');
                         KoansFailure = true;
                         return this;
                     }

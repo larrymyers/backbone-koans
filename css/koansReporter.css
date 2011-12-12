@@ -9,3 +9,7 @@ h2 {
 #summary {
     font-size: 18px;
 }
+
+.alert-message {
+    margin-bottom: 6px;
+}
