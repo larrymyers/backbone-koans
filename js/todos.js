@@ -2,6 +2,12 @@
 (function() {
     var TEMPLATE_URL = '';
     
+    var NAUGHTY_WORDS = /crap|poop|hell|frogs/gi;
+    
+    function sanitize(str) {
+        return str.replace(NAUGHTY_WORDS, 'rainbows');
+    }
+    
     window.Todo = Backbone.Model.extend({
 
         defaults: function() {
@@ -10,6 +16,16 @@
                 done:  false,
                 order: 0
             };
+        },
+        
+        initialize: function() {
+            this.set({text: sanitize(this.get('text'))}, {silent: true});
+        },
+        
+        validate: function(attrs) {
+            if (!_.isBoolean(attrs.done)) {
+                return 'Todo.done must be a boolean value.';
+            }
         },
 
         toggle: function() {
@@ -166,7 +182,7 @@
                 return;
             }
             
-            this.todos.create({text: text, order: this.todos.nextOrder()});
+            this.todos.create({text: text, done: false, order: this.todos.nextOrder()});
             this.input.val('');
         },
 
