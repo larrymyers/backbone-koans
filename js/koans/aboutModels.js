@@ -1,54 +1,55 @@
 describe('About Backbone.Model', function() {
     
     it('Can be created with default values for its attributes.', function() {
-        var toot = new Tooter.Toot();
+        var todo = new Todo();
         
-        expect(toot.get('user')).toBe('Some default name.');
-        expect(toot.get('message')).toBe('Some default message.');
-        expect(toot.get('created_on').getTime).toBeDefined();
+        expect(todo.get('text')).toBe("");
+        expect(todo.get('done')).toBe(false);
+        expect(todo.get('order')).toBe(0);
     });
     
     it('Will set passed attributes on the model instance when created.', function() {
         var now = new Date();
         
-        var toot = new Tooter.Toot({ user: 'Luigi', created_on: now });
+        var todo = new Todo({ text: 'Get oil change for car.' });
         
-        expect(toot.get('user')).toBe('Mario');
-        expect(toot.get('message')).toBe('Squishing Goombas, collecting coins.');
-        expect(toot.get('created_on')).toBe(now);
+        expect(todo.get('text')).toBe('Get oil change for car.');
+        expect(todo.get('done')).toBe(false);
+        expect(todo.get('order')).toBe(0);
     });
     
     it('Will call a custom initialize function on the model instance when created.', function() {
-        var toot = new Tooter.Toot({ user: 'toad' });
+        var toot = new Todo({ text: 'Stop monkeys from throwing their own crap!' });
         
-        expect(toot.get('user')).toBe('toad');
+        expect(toot.get('text')).toBe('Stop monkeys from throwing their own crap!');
     });
     
     it('Fires a custom event when the state changes.', function() {
-        var spy = jasmine.createSpy();
+        var spy = jasmine.createSpy('-change event callback-');
         
-        var toot = new Tooter.Toot();
+        var todo = new Todo();
         
-        toot.bind('change', spy);
+        todo.bind('change', spy);
         
-        // How would you update a property on the toot here?
+        // How would you update a property on the todo here?
         // Hint: http://documentcloud.github.com/backbone/#Model-set
         
         expect(spy).toHaveBeenCalled();
     });
     
     it('Can contain custom validation rules, and will trigger an error event on failed validation.', function() {
-        var errorCallback = jasmine.createSpy();
+        var errorCallback = jasmine.createSpy('-error event callback-');
         
-        var toot = new Tooter.Toot();
+        var todo = new Todo();
         
-        toot.bind('error', errorCallback);
+        todo.bind('error', errorCallback);
         
-        // How would you set an invalid message on the toot?
+        // What would you need to set on the todo to cause validation to fail?
         
         var errorArgs = errorCallback.mostRecentCall.args;
         
-        expect(errorArgs[0]).toBe(toot);
-        expect(errorArgs[1]).toBe('Must contain a message.');
+        expect(errorArgs).toBeDefined();
+        expect(errorArgs[0]).toBe(todo);
+        expect(errorArgs[1]).toBe('Todo.done must be a boolean value.');
     });
 });

@@ -14,7 +14,7 @@
             stack = /koans.+js:\d+/.exec(item.trace.stack);
             stack = (stack.length > 0) ? stack[0] : 'No line no found.';
             
-            return message + ' => ' + stack;
+            return message + ' <strong>-></strong> ' + stack;
         }
         
         return '';
@@ -74,22 +74,21 @@
                 
                 if (results.failedCount === 0) {
                     $(suiteElt).after(this.make('div', {'class': 'alert-message success'}, 'All passed. Meditate, and be wise.'));
-                    return this;
-                }
-                
-                for (j = 0; j < specs.length; j++) {
-                    spec = specs[j];
-                    results = spec.results();
-                    
-                    var specStyle = (results.failedCount > 0) ? 'alert-message block-message error' : 'alert-message block-message success';
-                    
-                    specElt = this.make('div', {'class': specStyle}, '<strong>' + spec.description + '</strong>');
-                    $(this.el).append(specElt);
-                    
-                    if (results.failedCount > 0) {
-                        $(specElt).append('<p>' + getFirstFailiureInfo(results) + '</p>');
-                        KoansFailure = true;
-                        return this;
+                } else {
+                    for (j = 0; j < specs.length; j++) {
+                        spec = specs[j];
+                        results = spec.results();
+
+                        var specStyle = (results.failedCount > 0) ? 'alert-message block-message error' : 'alert-message block-message success';
+
+                        specElt = this.make('div', {'class': specStyle}, '<strong>' + spec.description + '</strong>');
+                        $(this.el).append(specElt);
+
+                        if (results.failedCount > 0) {
+                            $(specElt).append('<p>' + getFirstFailiureInfo(results) + '</p>');
+                            KoansFailure = true;
+                            return this;
+                        }
                     }
                 }
             }
