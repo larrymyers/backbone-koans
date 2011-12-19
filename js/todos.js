@@ -23,7 +23,7 @@
         },
         
         validate: function(attrs) {
-            if (!_.isBoolean(attrs.done)) {
+            if (attrs.hasOwnProperty('done') && !_.isBoolean(attrs.done)) {
                 return 'Todo.done must be a boolean value.';
             }
         },

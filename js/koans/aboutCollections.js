@@ -1,42 +1,42 @@
 describe('About Backbone.Collection', function() {
-    it('Can add Model instances via attribute objects and arrays.', function() {
-        var toots = new Tooter.Toots();
+    it('Can add Model instances as objects and arrays.', function() {
+        var todos = new TodoList();
         
-        expect(toots.length).toBe(0);
+        expect(todos.length).toBe(0);
         
-        toots.add({ user: 'Wario', message: "I'm a gonna win!"});
+        todos.add({ text: 'Clean the kitchen' });
         
-        expect(toots.length).toBe(0);
+        expect(todos.length).toBe("How many models are in the collection now?");
         
-        toots.add([
-            { user: 'Peach', message: 'Waiting for Luigi.'}, 
-            { user: 'Koopa Troopa', message: '...' }
+        todos.add([
+            { text: 'Do the laundry', done: true }, 
+            { text: 'Go to the gym'}
         ]);
         
-        expect(toots.length).toBe(0);
+        expect(todos.length).toBe("How many models are in the collection now?");
     });
     
     it('Can have a url property to define the basic url structure for all contained models.', function() {
-        var toots = new Tooter.Toots();
+        var todos = new TodoList();
         
-        expect(toots.url).toBe('what goes here?');
+        expect(todos.url).toBe('what goes here?');
     });
     
     it('Fires custom named events when the models change.', function() {
-        var toots = new Tooter.Toots();
+        var todos = new TodoList();
         
-        var addCallback = jasmine.createSpy('add callback');
-        toots.bind('add', addCallback);
+        var addModelCallback = jasmine.createSpy('-add model callback-');
+        todos.bind('add', addModelCallback);
         
         // How would you get the 'add' event to trigger?
         
-        expect(addCallback).toHaveBeenCalled();
+        expect(addModelCallback).toHaveBeenCalled();
         
-        var removeCallback = jasmine.createSpy('remove callback');
-        toots.bind('remove', removeCallback);
+        var removeModelCallback = jasmine.createSpy('-remove model callback-');
+        todos.bind('remove', removeModelCallback);
         
         // How would you get the 'remove' callback to trigger?
         
-        expect(removeCallback).toHaveBeenCalled();
+        expect(removeModelCallback).toHaveBeenCalled();
     });
 });
