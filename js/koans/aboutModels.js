@@ -3,19 +3,15 @@ describe('About Backbone.Model', function() {
     it('Can be created with default values for its attributes.', function() {
         var todo = new Todo();
         
-        expect(todo.get('text')).toBe("");
-        expect(todo.get('done')).toBe(false);
-        expect(todo.get('order')).toBe(0);
+        expect(todo.get('text')).toBe("What should the default be here?");
     });
     
     it('Will set passed attributes on the model instance when created.', function() {
-        var now = new Date();
-        
         var todo = new Todo({ text: 'Get oil change for car.' });
         
-        expect(todo.get('text')).toBe('Get oil change for car.');
-        expect(todo.get('done')).toBe(false);
-        expect(todo.get('order')).toBe(0);
+        expect(todo.get('text')).toBe("FIX ME");
+        expect(todo.get('done')).toBe("FIX ME");
+        expect(todo.get('order')).toBe("FIX ME");
     });
     
     it('Will call a custom initialize function on the model instance when created.', function() {
@@ -44,7 +40,7 @@ describe('About Backbone.Model', function() {
         
         todo.bind('error', errorCallback);
         
-        // What would you need to set on the todo to cause validation to fail?
+        // What would you need to set on the todo properties to cause validation to fail?
         
         var errorArgs = errorCallback.mostRecentCall.args;
         
