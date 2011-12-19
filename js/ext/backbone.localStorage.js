@@ -79,7 +79,7 @@ Backbone.sync = function(method, model, options, error) {
   var store = Backbone.localStorageDB;
   
   if (!store) {
-      throw new Exception('No Store instance created for Backbone.localStorageDB');
+      throw new Error('No Store instance created for Backbone.localStorageDB');
   }
 
   switch (method) {

@@ -30,6 +30,8 @@
     var reporter = new KoansReporter();
     
     $(document).ready(function(evt) {
+        Backbone.localStorageDB = new Store('todosSpecs');
+        
         jasmine.getEnv().addReporter(reporter);
         jasmine.getEnv().execute();
     });
