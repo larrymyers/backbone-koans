@@ -1,34 +1,37 @@
 describe('About Backbone.View', function() {
-    var tootView;
+    var todoView;
+    
+    beforeEach(function() {
+        todoView = new TodoView({ model: new Todo() });
+    });
     
     afterEach(function() {
-        tootView.remove();
+        todoView.remove();
     });
     
-    it('Should be tied to a DOM element when created, based off the property provided.', function() {
-        tootView = new Tooter.TootView();
-        
-        expect(tootView.el.tagName.toLowerCase()).toBe('... tagName?');
+    xit('Should be tied to a DOM element when created, based off the property provided.', function() {
+        expect(todoView.el.tagName.toLowerCase()).toBe('what html element tag name represents this view?');
     });
     
-    it('Is backed by a model instance, which provides the data.', function() {
-        tootView = new Tooter.TootView({ model: new Tooter.Toot() });
-        
-        expect(tootView.model).toBeDefined();
-        expect(tootView.model.get('user')).toBe('who?');
+    xit('Is backed by a model instance, which provides the data.', function() {
+        expect(todoView.model).toBeDefined();
+        expect(todoView.model.get('done')).toBe("What's the value for Todo.get('done') here?");
     });
     
-    it('Can render, after which the DOM representation of the view will be visible.', function() {
-        $('body').append('<ul id="tootList"></ul>');
+    xit('Can render, after which the DOM representation of the view will be visible.', function() {
+        $('body').append('<ul id="todoList"></ul>');
         
-        var toot = new Tooter.Toot();
+        todoView.render();
         
-        tootView = new Tooter.TootView({ parentElt: '#tootList', model: toot });
-        tootView.render();
+        // Hint: render() just builds the DOM representation of the view, but doesn't insert it into the DOM.
+        //       How would you append it to the ul#todoList? 
+        //       How do you access the view's DOM representation?
+        //
+        // Hint: http://documentcloud.github.com/backbone/#View-el
         
-        expect($('#tootList').find('.toot').length).toBe(0);
+        expect($('#todoList').find('li').length).toBe(1);
         
-        $('#tootList').remove();
+        $('#todoList').remove();
     });
     
     it('Can use an events hash to wire up view methods to DOM elements.', function() {
