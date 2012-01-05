@@ -31,7 +31,10 @@
     <a id="spec_link" href="specrunner.html">To the Koans&nbsp;&#187;&nbsp;</a>
     <script type="text/javascript">
     $(document).ready(function(evt) {
-        Backbone.localStorageDB = new Store('todos');
+        _.extend(TodoList.prototype, {
+            localStorage: new Store('todos')
+        });
+        
         App = new TodoApp({ appendTo: $('body') });
     });
     </script>

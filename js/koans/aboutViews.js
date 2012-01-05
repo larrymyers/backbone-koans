@@ -35,6 +35,8 @@ describe('About Backbone.View', function() {
     it('Can use an events hash to wire up view methods to DOM elements.', function() {
         var viewElt;
         
+        spyOn(todoView.model, 'toggle');
+        
         runs(function() {
             $('#todoList').append(todoView.render().el);
         });
@@ -46,12 +48,12 @@ describe('About Backbone.View', function() {
         }, 1000, 'Expected DOM Elt to exist');
         
         runs(function() {
-            // Hint: How would you trigger the view, via a DOM Event, to toggle the 'done' status.
+            // Hint: How would you trigger the view, via a DOM Event, to toggle the 'done' status?
             //       (See todos.js line 70, where the events hash is defined.)
             //
             // Hint: http://api.jquery.com/click
             
-            expect(todoView.model.get('done')).toBe(true);
+            expect(todoView.model.toggle).toHaveBeenCalled();
         });
     });
 });

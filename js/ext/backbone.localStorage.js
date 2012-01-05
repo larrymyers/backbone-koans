@@ -1,8 +1,6 @@
 /**
  * Backbone localStorage Adapter v1.0
  * https://github.com/jeromegn/Backbone.localStorage
- *
- * Date: Sun Aug 14 2011 09:53:55 -0400
  */
 
 // A simple module to replace `Backbone.sync` with *localStorage*-based
@@ -71,19 +69,23 @@ _.extend(Store.prototype, {
 
 });
 
-// Override `Backbone.sync` to use delegate to the model or collection's
+// localSync delegate to the model or collection's
 // *localStorage* property, which should be an instance of `Store`.
-Backbone.sync = function(method, model, options, error) {
+Backbone.localSync = function(method, model, options, error) {
 
-  var resp;
-  var store = Backbone.localStorageDB;
-  
-  if (!store) {
-      throw new Error('No Store instance created for Backbone.localStorageDB');
+  // Backwards compatibility with Backbone <= 0.3.3
+  if (typeof options == 'function') {
+    options = {
+      success: options,
+      error: error
+    };
   }
 
+  var resp;
+  var store = model.localStorage || model.collection.localStorage;
+
   switch (method) {
-    case "read":    resp = model.id ? store.find(model) : store.findAll(); break;
+    case "read":    resp = model.id != undefined ? store.find(model) : store.findAll(); break;
     case "create":  resp = store.create(model);                            break;
     case "update":  resp = store.update(model);                            break;
     case "delete":  resp = store.destroy(model);                           break;
@@ -95,3 +97,8 @@ Backbone.sync = function(method, model, options, error) {
     options.error("Record not found");
   }
 };
+
+// Override 'Backbone.sync' to default to localSync, 
+// the original 'Backbone.sync' is still available in 'Backbone.ajaxSync'
+Backbone.ajaxSync = Backbone.sync;
+Backbone.sync = Backbone.localSync;

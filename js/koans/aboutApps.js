@@ -10,10 +10,11 @@ describe('About Backbone Applications', function() {
     });
     
     afterEach(function() {
+        App.todos.reset();
         $('#app').remove();
     });
     
-    it('Should bootstrap the application by initializing the collection.', function() {
+    it('Should bootstrap the application by initializing the Collection.', function() {
         expect(App.todos).toBeDefined();
     });
 });
