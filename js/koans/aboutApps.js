@@ -16,5 +16,11 @@ describe('About Backbone Applications', function() {
     
     it('Should bootstrap the application by initializing the Collection.', function() {
         expect(App.todos).toBeDefined();
+        expect(App.todos.length).toEqual(0);
+    });
+    
+    it('Should bind Collection events to View creation.', function() {
+        $('#new-todo').val('Foo');
+        $('#new-todo').trigger(new $.Event('keypress', { keyCode: 13 }));
     });
 });
