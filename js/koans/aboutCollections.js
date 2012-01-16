@@ -6,36 +6,42 @@ describe('About Backbone.Collection', function() {
         
         todos.add({ text: 'Clean the kitchen' });
         
-        expect(todos.length).toBe("How many models are in the collection now?");
+        expect(todos.length).toEqual(1);
         
-        todos.add([
-            { text: 'Do the laundry', done: true }, 
-            { text: 'Go to the gym'}
-        ]);
+        // How would you add multiple models to the collection with a single method call?
         
-        expect(todos.length).toBe("How many models are in the collection now?");
+        expect(todos.length).toEqual(3);
     });
     
-    it('Can have a url property to define the basic url structure for all contained models.', function() {
+    it('Can have a comparator function to keep the collection sorted.', function() {
         var todos = new TodoList();
         
-        expect(todos.url).toBe('what goes here?');
+        // Without changing the sequence in which the todos are added, how would you
+        // get the expectations below to pass?
+        
+        todos.add([{ text: 'Do the laundry',  order: 1},
+                   { text: 'Clean the house', order: 2},
+                   { text: 'Take a nap',      order: 3}]);
+        
+        expect(todos.at(0).get('text')).toEqual('Clean the house');
+        expect(todos.at(1).get('text')).toEqual('Do the laundry');
+        expect(todos.at(2).get('text')).toEqual('Take a nap');
     });
     
-    it('Fires custom named events when the models change.', function() {
+    it('Fires custom named events when the collection changes.', function() {
         var todos = new TodoList();
         
         var addModelCallback = jasmine.createSpy('-add model callback-');
         todos.bind('add', addModelCallback);
         
-        // How would you get the 'add' event to trigger?
+        // How would you get the 'add' event to fire?
         
         expect(addModelCallback).toHaveBeenCalled();
         
         var removeModelCallback = jasmine.createSpy('-remove model callback-');
         todos.bind('remove', removeModelCallback);
         
-        // How would you get the 'remove' callback to trigger?
+        // How would you get the 'remove' event to fire?
         
         expect(removeModelCallback).toHaveBeenCalled();
     });
