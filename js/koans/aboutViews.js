@@ -2,8 +2,11 @@ describe('About Backbone.View', function() {
     var todoView;
     
     beforeEach(function() {
+        var todo = new Todo();
+        todo.localStorage = new Store('ViewSpecs');
+        
         $('body').append('<ul id="todoList"></ul>');
-        todoView = new TodoView({ model: new Todo() });
+        todoView = new TodoView({ model: todo });
     });
     
     afterEach(function() {
@@ -12,12 +15,16 @@ describe('About Backbone.View', function() {
     });
     
     it('Should be tied to a DOM element when created, based off the property provided.', function() {
-        expect(todoView.el.tagName.toLowerCase()).toBe('what html element tag name represents this view?');
+        var tagName = 'what html element represents this view?';
+        
+        expect(todoView.el.tagName.toLowerCase()).toBe(tagName);
     });
     
-    it('Is backed by a model instance, which provides the data.', function() {
-        expect(todoView.model).toBeDefined();
-        expect(todoView.model.get('done')).toBe("What's the value for Todo.get('done') here?");
+    it('Is backed by a model instance, which provides the data representation.', function() {
+        // What method would you call on todoView to get this expectation to pass?
+        // Hint: You can accomplish this without accessing todoView.model directly.
+        
+        expect(todoView.model.get('done')).toBe(true);
     });
     
     it('Can render, after which the DOM representation of the view will be visible.', function() {
