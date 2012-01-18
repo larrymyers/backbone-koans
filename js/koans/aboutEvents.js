@@ -1,4 +1,4 @@
-xdescribe('About Backbone.Events', function() {
+describe('About Backbone.Events', function() {
     
     var obj = {};
     _.extend(obj, Backbone.Events);

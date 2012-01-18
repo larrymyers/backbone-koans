@@ -5,7 +5,7 @@
  */
 describe('About Backbone.Model', function() {
     
-    xit('A Model can have default values for its attributes.', function() {
+    it('A Model can have default values for its attributes.', function() {
         var todo = new Todo();
         
         var defaultAttrs = {
@@ -17,7 +17,7 @@ describe('About Backbone.Model', function() {
         expect(defaultAttrs).toEqual(todo.attributes);
     });
     
-    xit('Attributes can be set on the model instance when it is created.', function() {
+    it('Attributes can be set on the model instance when it is created.', function() {
         var todo = new Todo({ text: 'Get oil change for car.' });
         
         var expectedText = 'FIX ME';
@@ -56,6 +56,7 @@ describe('About Backbone.Model', function() {
         todo.bind('error', errorCallback);
         
         // What would you need to set on the todo properties to cause validation to fail?
+        // Refer to Todo.validate in js/todos.js to see the logic.
         
         var errorArgs = errorCallback.mostRecentCall.args;
         
