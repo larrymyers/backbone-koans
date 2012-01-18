@@ -1,6 +1,11 @@
+/**
+ * NOTE: At this point we're test driving the sample Todo list app.
+ *       You'll be refering to js/todos.js quite a bit from now on,
+ *       so make sure you have it open.
+ */
 describe('About Backbone.Model', function() {
     
-    it('Can be created with default values for its attributes.', function() {
+    xit('A Model can have default values for its attributes.', function() {
         var todo = new Todo();
         
         var defaultAttrs = {
@@ -9,21 +14,25 @@ describe('About Backbone.Model', function() {
             order: 'What is the default value?'
         }
         
-        expect(todo.attributes).toEqual(defaultAttrs);
+        expect(defaultAttrs).toEqual(todo.attributes);
     });
     
-    it('Will set passed attributes on the model instance when created.', function() {
+    xit('Attributes can be set on the model instance when it is created.', function() {
         var todo = new Todo({ text: 'Get oil change for car.' });
         
         var expectedText = 'FIX ME';
         
-        expect(todo.get('text')).toEqual(expectedText);
+        expect(expectedText).toEqual(todo.get('text'));
     });
     
-    it('Will call a custom initialize function on the model instance when created.', function() {
+    it('If it is exists, an initialize function on the model will be called when it is created.', function() {
         var todo = new Todo({ text: 'Stop monkeys from throwing their own feces!' });
         
-        expect(todo.get('text')).toBe('Stop monkeys from throwing their own rainbows!');
+        // Why does the expected text differ from what is passed in when we create the Todo?
+        // What is happening in Todo.initialize? (see js/todos.js line 22)
+        // You can get this test passing without changing todos.js or the expected text.
+        
+        expect('Stop monkeys from throwing their own double rainbows!').toBe(todo.get('text'));
     });
     
     it('Fires a custom event when the state changes.', function() {

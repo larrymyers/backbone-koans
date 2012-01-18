@@ -1,4 +1,4 @@
-describe('About Backbone.Collection', function() {
+xdescribe('About Backbone.Collection', function() {
     it('Can add Model instances as objects and arrays.', function() {
         var todos = new TodoList();
         

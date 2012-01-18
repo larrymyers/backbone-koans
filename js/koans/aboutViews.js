@@ -1,4 +1,4 @@
-describe('About Backbone.View', function() {
+xdescribe('About Backbone.View', function() {
     var todoView;
     
     beforeEach(function() {

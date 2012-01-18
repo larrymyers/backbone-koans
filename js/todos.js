@@ -5,7 +5,7 @@
     var NAUGHTY_WORDS = /crap|poop|hell|frogs/gi;
     
     function sanitize(str) {
-        return str.replace(NAUGHTY_WORDS, 'rainbows');
+        return str.replace(NAUGHTY_WORDS, 'double rainbows');
     }
     
     window.Todo = Backbone.Model.extend({
