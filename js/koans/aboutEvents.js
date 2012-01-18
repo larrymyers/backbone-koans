@@ -7,10 +7,10 @@ describe('About Backbone.Events', function() {
         obj.unbind(); // remove all custom events before each spec is run.
     });
     
-    it('Can extend javascript objects to support custom events.', function() {
+    it('Any regular javascript object can be extended with custom event functionality.', function() {
         var basicObject = {};
         
-        // How would you give basicObject these functions?
+        // How would you get these Backbone.Events functions added to basicObject?
         // Hint: http://documentcloud.github.com/backbone/#Events
         
         expect(typeof basicObject.bind).toEqual('function');
@@ -18,7 +18,7 @@ describe('About Backbone.Events', function() {
         expect(typeof basicObject.trigger).toEqual('function');
     });
     
-    it('Allows us to bind and trigger custom named events on an object.', function() {
+    it('Events allows us to bind and trigger custom named events on an object.', function() {
         var callback = jasmine.createSpy('-Custom Event Callback-');
         
         obj.bind('basic event', callback);
@@ -28,26 +28,31 @@ describe('About Backbone.Events', function() {
         expect(callback).toHaveBeenCalled();
     });
     
-    it('Also passes along any arguments to the callback when an event is triggered.', function() {
-        var passedArgs = [];
+    it('Triggered events pass along any arguments to the callback.', function() {
+        var callback = jasmine.createSpy('-Custom Event Callback-');
         
-        obj.bind('some event', function() {
-            for (var i = 0; i < arguments.length; i++) {
-                passedArgs.push(arguments[i]);
-            }
-        });
+        obj.bind('some event', callback);
         
         obj.trigger('some event');
         
-        expect(passedArgs).toEqual(['arg1', 'arg2']);
+        expect(callback.mostRecentCall.args).toEqual(['arg1', 'arg2']);
     });
     
-    it('Can also bind the passed context to the event callback.', function() {
+    it('Bound events can also pass a specific context to the event callback.', function() {
         var foo = { color: 'blue' };
         
         var changeColor = function() {
             this.color = 'red';
         }
+        
+        /***
+         * Does refering to 'this' from within an anonymous function seem foreign to you?
+         * No idea what 'context' refers to when talking about javascript?
+         * Here's a some reading that can help clarify things:
+         * http://javascriptweblog.wordpress.com/2010/08/30/understanding-javascripts-this/
+         *
+         * Now, back to the koans ...
+         ***/
         
         // How would you get 'this.color' to refer to 'foo' in the changeColor function?
         
@@ -58,16 +63,18 @@ describe('About Backbone.Events', function() {
         expect(foo.color).toEqual('red');
     });
     
-    it("Uses 'all' as a special event name to capture all events bound to the object.", function() {
+    it("Evented objects can bind 'all' as a special event name to capture all triggered events on the object.", function() {
         var callback = jasmine.createSpy('-Custom Event Callback-');
         
         obj.bind('all', callback);
+        
+        // How are you going to call obj.trigger to get both expectations passing?
         
         expect(callback.callCount).toBe(1);
         expect(callback.mostRecentCall.args[0]).toBe('custom event');
     });
     
-    it('Also can remove custom events from objects.', function() {
+    it('Evented objects can also have their named events removed.', function() {
         var spy1 = jasmine.createSpy('-Spy 1-');
         var spy2 = jasmine.createSpy('-Spy 2-');
         var spy3 = jasmine.createSpy('-Spy 3-');
