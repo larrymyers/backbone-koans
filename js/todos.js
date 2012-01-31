@@ -140,8 +140,7 @@
             TEMPLATE_URL = options.templateUrl || TEMPLATE_URL;
             
             parentElt.template(TEMPLATE_URL + '/templates/app.html', {}, function() {
-                self.el = $('#todoapp');
-                self.delegateEvents();
+                self.setElement($('#todoapp'));
                 
                 self.input = self.$("#new-todo");
 
