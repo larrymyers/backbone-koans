@@ -21,19 +21,31 @@ describe('About Backbone.Events', function() {
     it('Events allows us to bind and trigger custom named events on an object.', function() {
         var callback = jasmine.createSpy('-Custom Event Callback-');
         
-        obj.bind('basic event', callback);
+        obj.bind('basic_event', callback);
         
         // How would you cause the callback for this custom event to be called?
         
         expect(callback).toHaveBeenCalled();
     });
     
+    it('Events allows us to trigger more than one event at the same time.', function() {
+        var callback = jasmine.createSpy('-Custom Event Callback-');
+        
+        // You can bind an object to two events at the same time separating them with spaces
+        obj.bind('an_event another_event', callback);
+        
+        // How would you change the trigger call to trigger two events at the same time?
+        obj.trigger('an_event')
+        
+        expect(callback.callCount).toBe(2);
+    });
+    
     it('Triggered events pass along any arguments to the callback.', function() {
         var callback = jasmine.createSpy('-Custom Event Callback-');
         
-        obj.bind('some event', callback);
+        obj.bind('some_event', callback);
         
-        obj.trigger('some event');
+        obj.trigger('some_event');
         
         expect(callback.mostRecentCall.args).toEqual(['arg1', 'arg2']);
     });
@@ -56,9 +68,9 @@ describe('About Backbone.Events', function() {
         
         // How would you get 'this.color' to refer to 'foo' in the changeColor function?
         
-        obj.bind('an event', changeColor);
+        obj.bind('an_event', changeColor);
         
-        obj.trigger('an event');
+        obj.trigger('an_event');
         
         expect(foo.color).toEqual('red');
     });
@@ -71,7 +83,7 @@ describe('About Backbone.Events', function() {
         // How are you going to call obj.trigger to get both expectations passing?
         
         expect(callback.callCount).toBe(1);
-        expect(callback.mostRecentCall.args[0]).toBe('custom event');
+        expect(callback.mostRecentCall.args[0]).toBe('custom_event');
     });
     
     it('Evented objects can also have their named events removed.', function() {
