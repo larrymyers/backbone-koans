@@ -2,6 +2,7 @@
     function getFirstFailiureInfo(results) {
         var items = results.getItems(),
             item, i, message, stack;
+
         
         for (i = 0; i < items.length; i++) {
             item = items[i];
@@ -9,15 +10,28 @@
             if (item.passed()) {
                 continue;
             }
-            
+
             message = item.message;
-            stack = /koans.+js:\d+/.exec(item.trace.stack);
+            
+            stack = /js\/koans.+js:\d+/.exec(item.trace.stack);
             stack = (stack.length > 0) ? stack[0] : 'No line no found.';
             
             return message + ' <strong>-></strong> ' + stack;
         }
         
         return '';
+    }
+
+    function browserCheck(results) {
+        var items = results.getItems();
+        var item = items[0];
+
+        if (/file:\/\/\//.exec(item.trace.stack)) {
+            $('body').prepend('<div class="alert-message warning"><strong>Warning:</strong> ' + 
+                'Running specrunner.html from the browser directly is not recommended. ' + 
+                'Consider starting specrunner this way instead: ' + 
+                '<em>python -m SimpleHTTPServer</em></div>');           
+        };    
     }
     
     var SummaryView = Backbone.View.extend({
@@ -71,10 +85,15 @@
                 $(this.el).append(suiteElt);
                 
                 results = suite.results();
+           
                 
                 if (results.failedCount === 0) {
                     $(suiteElt).after(this.make('div', {'class': 'alert-message success'}, 'All passed. Meditate, and be wise.'));
                 } else {
+                    if (i === 0 && results.passedCount === 0) {
+                        browserCheck(specs[0].results());
+                    }   
+
                     for (j = 0; j < specs.length; j++) {
                         spec = specs[j];
                         results = spec.results();
