@@ -67,8 +67,9 @@ describe('About Backbone.Events', function() {
          ***/
         
         // How would you get 'this.color' to refer to 'foo' in the changeColor function?
+        // Hint: Notice anything different about the 'on' method below?
         
-        obj.on('an_event', changeColor);
+        obj.on('an_event', changeColor, this);
         
         obj.trigger('an_event');
         
