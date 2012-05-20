@@ -24,7 +24,7 @@
         el: '#summary',
         
         initialize: function(options) {
-            options.runner.bind('finished', this.render, this);
+            options.runner.on('finished', this.render, this);
             
             this.render();
         },
@@ -51,7 +51,7 @@
         el: '#progress',
         
         initialize: function(options) {
-            options.runner.bind('finished', this.render, this);
+            options.runner.on('finished', this.render, this);
         },
         
         render: function() {

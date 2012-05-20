@@ -21,7 +21,7 @@ describe('About Backbone.Events', function() {
     it('Events allows us to bind and trigger custom named events on an object.', function() {
         var callback = jasmine.createSpy('-Custom Event Callback-');
         
-        obj.bind('basic_event', callback);
+        obj.on('basic_event', callback);
         
         // How would you cause the callback for this custom event to be called?
         
@@ -32,7 +32,7 @@ describe('About Backbone.Events', function() {
         var callback = jasmine.createSpy('-Custom Event Callback-');
         
         // You can bind an object to two events at the same time separating them with spaces
-        obj.bind('an_event another_event', callback);
+        obj.on('an_event another_event', callback);
         
         // How would you change the trigger call to trigger two events at the same time?
         obj.trigger('an_event')
@@ -43,7 +43,7 @@ describe('About Backbone.Events', function() {
     it('Triggered events pass along any arguments to the callback.', function() {
         var callback = jasmine.createSpy('-Custom Event Callback-');
         
-        obj.bind('some_event', callback);
+        obj.on('some_event', callback);
         
         obj.trigger('some_event');
         
@@ -68,7 +68,7 @@ describe('About Backbone.Events', function() {
         
         // How would you get 'this.color' to refer to 'foo' in the changeColor function?
         
-        obj.bind('an_event', changeColor);
+        obj.on('an_event', changeColor);
         
         obj.trigger('an_event');
         
@@ -78,7 +78,7 @@ describe('About Backbone.Events', function() {
     it("Evented objects can bind 'all' as a special event name to capture all triggered events on the object.", function() {
         var callback = jasmine.createSpy('-Custom Event Callback-');
         
-        obj.bind('all', callback);
+        obj.on('all', callback);
         
         // How are you going to call obj.trigger to get both expectations passing?
         
@@ -91,10 +91,10 @@ describe('About Backbone.Events', function() {
         var spy2 = jasmine.createSpy('-Spy 2-');
         var spy3 = jasmine.createSpy('-Spy 3-');
          
-        obj.bind('foo', spy1);
-        obj.bind('foo', spy2);
-        obj.bind('foo', spy3);
-        obj.bind('bar', spy1);
+        obj.on('foo', spy1);
+        obj.on('foo', spy2);
+        obj.on('foo', spy3);
+        obj.on('bar', spy1);
         
         // How do you unbind just a single callback for the event?
         
