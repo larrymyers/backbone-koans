@@ -23,10 +23,7 @@
     }
 
     function browserCheck(results) {
-        var items = results.getItems();
-        var item = items[0];
-
-        if (/file:\/\/\//.exec(item.trace.stack)) {
+        if (window.location.protocol === 'file:') {
             $('body').prepend('<div class="alert-message warning"><strong>Warning:</strong> ' + 
                 'Running specrunner.html from the browser directly is not recommended. ' + 
                 'Consider starting specrunner this way instead: ' + 
@@ -76,6 +73,7 @@
             if (KoansFailure) {
                 return this;
             }
+            browserCheck();
             
             for (i = 0; i < suites.length; i++) {
                 suite = suites[i];
@@ -90,9 +88,6 @@
                 if (results.failedCount === 0) {
                     $(suiteElt).after(this.make('div', {'class': 'alert-message success'}, 'All passed. Meditate, and be wise.'));
                 } else {
-                    if (i === 0 && results.passedCount === 0) {
-                        browserCheck(specs[0].results());
-                    }   
 
                     for (j = 0; j < specs.length; j++) {
                         spec = specs[j];
