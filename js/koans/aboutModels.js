@@ -20,19 +20,18 @@ describe('About Backbone.Model', function() {
     it('Attributes can be set on the model instance when it is created.', function() {
         var todo = new Todo({ text: 'Get oil change for car.' });
         
-        var expectedText = 'FIX ME';
-        
-        expect(expectedText).toEqual(todo.get('text'));
+        expect(todo.get('text')).toEqual('FIX ME');
     });
     
     it('If it is exists, an initialize function on the model will be called when it is created.', function() {
-        var todo = new Todo({ text: 'Stop monkeys from throwing their own feces!' });
         
         // Why does the expected text differ from what is passed in when we create the Todo?
         // What is happening in Todo.initialize? (see js/todos.js line 22)
-        // You can get this test passing without changing todos.js or the expected text.
-        
-        expect('Stop monkeys from throwing their own double rainbows!').toBe(todo.get('text'));
+        // You can get this test passing without changing todos.js or actualText.
+        var todo = new Todo({ text: 'Stop monkeys from throwing their own feces!' });
+
+        actualText = 'Stop monkeys from throwing their own double rainbows!'; // Don't change
+        expect(todo.get('text')).toBe(actualText);
     });
     
     it('Fires a custom event when the state changes.', function() {
