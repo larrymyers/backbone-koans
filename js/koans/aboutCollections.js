@@ -39,7 +39,7 @@ describe('About Backbone.Collection', function() {
         var todos = new TodoList();
         
         var addModelCallback = jasmine.createSpy('-add model callback-');
-        todos.bind('add', addModelCallback);
+        todos.on('add', addModelCallback);
         
         // How would you get both expectations to pass with a single method call?
         
@@ -47,7 +47,7 @@ describe('About Backbone.Collection', function() {
         expect(addModelCallback).toHaveBeenCalled();
         
         var removeModelCallback = jasmine.createSpy('-remove model callback-');
-        todos.bind('remove', removeModelCallback);
+        todos.on('remove', removeModelCallback);
         
         // How would you get both expectations to pass with a single method call?
         

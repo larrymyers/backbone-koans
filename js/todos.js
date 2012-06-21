@@ -74,8 +74,8 @@
         },
 
         initialize: function() {
-            this.model.bind('change', this.render, this);
-            this.model.bind('destroy', this.remove, this);
+            this.model.on('change', this.render, this);
+            this.model.on('destroy', this.remove, this);
         },
 
         render: function() {
@@ -92,7 +92,7 @@
             var text = this.model.get('text');
             this.$('.todo-text').text(text);
             this.input = this.$('.todo-input');
-            this.input.bind('blur', _.bind(this.close, this)).val(text);
+            this.input.on('blur', _.bind(this.close, this)).val(text);
         },
 
         toggleDone: function() {
@@ -144,9 +144,9 @@
                 
                 self.input = self.$("#new-todo");
 
-                self.todos.bind('add',   self.addOne, self);
-                self.todos.bind('reset', self.addAll, self);
-                self.todos.bind('all',   self.render, self);
+                self.todos.on('add',   self.addOne, self);
+                self.todos.on('reset', self.addAll, self);
+                self.todos.on('all',   self.render, self);
 
                 self.todos.fetch();
             });
