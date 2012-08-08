@@ -13,7 +13,7 @@
         color: #333;
         text-decoration: none;
     }
-    
+
     #spec_link:hover {
         color: #666;
         text-decoration: underline;
@@ -34,7 +34,7 @@
         _.extend(TodoList.prototype, {
             localStorage: new Store('todos')
         });
-        
+
         App = new TodoApp({ appendTo: $('body') });
     });
     </script>

@@ -1,13 +1,13 @@
 /* global $, _, Backbone */
 (function() {
     var TEMPLATE_URL = '';
-    
+
     var NAUGHTY_WORDS = /crap|poop|hell|frogs/gi;
-    
+
     function sanitize(str) {
         return str.replace(NAUGHTY_WORDS, 'double rainbows');
     }
-    
+
     window.Todo = Backbone.Model.extend({
 
         defaults: function() {
@@ -17,11 +17,11 @@
                 order: 0
             };
         },
-        
+
         initialize: function() {
             this.set({text: sanitize(this.get('text'))}, {silent: true});
         },
-        
+
         validate: function(attrs) {
             if (attrs.hasOwnProperty('done') && !_.isBoolean(attrs.done)) {
                 return 'Todo.done must be a boolean value.';
@@ -37,7 +37,7 @@
     window.TodoList = Backbone.Collection.extend({
 
         model: Todo,
-        
+
         url: '/todos/',
 
         done: function() {
@@ -47,12 +47,12 @@
         remaining: function() {
             return this.without.apply(this, this.done());
         },
-        
+
         nextOrder: function() {
-            if (!this.length) { 
-                return 1; 
+            if (!this.length) {
+                return 1;
             }
-            
+
             return this.last().get('order') + 1;
         },
 
@@ -80,11 +80,11 @@
 
         render: function() {
             var self = this;
-            
+
             $(self.el).empty().template(TEMPLATE_URL + '/templates/item.html', self.model.toJSON(), function() {
                 self.setText();
             });
-            
+
             return this;
         },
 
@@ -124,7 +124,7 @@
     });
 
     window.TodoApp = Backbone.View.extend({
-        
+
         todos: new TodoList(),
 
         events: {
@@ -136,12 +136,12 @@
         initialize: function(options) {
             var self = this,
                 parentElt = options.appendTo || $('body');
-                
+
             TEMPLATE_URL = options.templateUrl || TEMPLATE_URL;
-            
+
             parentElt.template(TEMPLATE_URL + '/templates/app.html', {}, function() {
                 self.setElement($('#todoapp'));
-                
+
                 self.input = self.$("#new-todo");
 
                 self.todos.on('add',   self.addOne, self);
@@ -159,9 +159,9 @@
                     done:       self.todos.done().length,
                     remaining:  self.todos.remaining().length
                 };
-            
+
             $('#todo-stats').empty().template(TEMPLATE_URL + '/templates/stats.html', data);
-            
+
             return this;
         },
 
@@ -176,11 +176,11 @@
 
         createOnEnter: function(e) {
             var text = this.input.val();
-            
+
             if (!text || e.keyCode !== 13) {
                 return;
             }
-            
+
             this.todos.create({text: text, done: false, order: this.todos.nextOrder()});
             this.input.val('');
         },
@@ -193,17 +193,17 @@
         showTooltip: function(e) {
             var tooltip = this.$(".ui-tooltip-top");
             var val = this.input.val();
-            
+
             tooltip.fadeOut();
-            
+
             if (this.tooltipTimeout) { clearTimeout(this.tooltipTimeout); }
             if (val === '' || val == this.input.attr('placeholder')) { return; }
-            
+
             var show = function() { tooltip.show().fadeIn(); };
-            
+
             this.tooltipTimeout = _.delay(show, 1000);
         }
-        
+
     });
-    
+
 }());
