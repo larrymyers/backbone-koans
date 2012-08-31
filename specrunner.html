@@ -4,17 +4,17 @@
     <title>Backbone Koans</title>
     <link href="css/bootstrap.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="css/koansReporter.css" media="all" rel="stylesheet" type="text/css"/>
-    
+
     <script type="text/javascript" src="js/ext/jquery-1.7.1.js"></script>
     <script type="text/javascript" src="js/ext/underscore.js"></script>
     <script type="text/javascript" src="js/ext/template.js"></script>
     <script type="text/javascript" src="js/ext/backbone.js"></script>
     <script type="text/javascript" src="js/ext/backbone.localStorage.js"></script>
     <script type="text/javascript" src="js/todos.js"></script>
-    
+
     <script type="text/javascript" src="js/ext/jasmine.js"></script>
     <script type="text/javascript" src="js/koansReporter.js"></script>
-    
+
     <script type="text/javascript" src="js/koans/aboutEvents.js"></script>
     <script type="text/javascript" src="js/koans/aboutModels.js"></script>
     <script type="text/javascript" src="js/koans/aboutCollections.js"></script>
@@ -23,31 +23,31 @@
 </head>
 <body>
     <h1>Backbone Koans</h1>
-    
+
     <h2>Instructions</h2>
-    
+
     <ol>
         <li>Open new browser tabs for both <a href="http://documentcloud.github.com/backbone/">Backbone.js Docs</a>
             and <a href="js/todos.js">todos.js</a>. You'll need to refer to these while fixing the failing tests.
         <li>Get each failing test passing without modifying the expect() statements or todos.js</li>
-        <li>Not familiar with <a href="http://pivotal.github.com/jasmine/">Jasmine</a>? 
+        <li>Not familiar with <a href="http://pivotal.github.com/jasmine/">Jasmine</a>?
             Take a moment to check out the <a href="https://github.com/pivotal/jasmine/wiki">documentation</a> first.</li>
         <li>If it you want to see how the Todo app works, you can <a href="index.html">go back</a> at any time.</li>
     </ol>
-        
+
     <h2>Current Progress</h2>
-    
+
     <ul id="summary" class="unstyled"></ul>
     <div id="progress"></div>
-    
+
     <script type="text/javascript">
     var reporter = new KoansReporter();
-    
+
     $(document).ready(function(evt) {
         _.extend(TodoList.prototype, {
             localStorage: new Store('koans-todos')
         });
-        
+
         jasmine.getEnv().addReporter(reporter);
         jasmine.getEnv().execute();
     });
