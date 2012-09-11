@@ -17,7 +17,7 @@ describe('About Backbone.View', function() {
     it('Views are tied to a DOM element when created, based off the property provided.', function() {
         var tagName = 'what html element represents this view?';
 
-        expect(tagName).toEqual(todoView.tagName)
+        expect(tagName).toEqual(todoView.tagName);
         expect(tagName).toEqual(todoView.el.tagName.toLowerCase());
     });
 
