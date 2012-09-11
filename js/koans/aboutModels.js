@@ -12,7 +12,7 @@ describe('About Backbone.Model', function() {
             text: 'What is the default value?',
             done : 'What is the default value?',
             order: 'What is the default value?'
-        }
+        };
 
         expect(defaultAttrs).toEqual(todo.attributes);
     });
