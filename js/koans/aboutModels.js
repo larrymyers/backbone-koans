@@ -1,6 +1,6 @@
 /**
  * NOTE: At this point we're test driving the sample Todo list app.
- *       You'll be refering to js/todos.js quite a bit from now on,
+ *       You'll be referring to js/todos.js quite a bit from now on,
  *       so make sure you have it open.
  */
 describe('About Backbone.Model', function() {
