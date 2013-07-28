@@ -10,6 +10,8 @@ created by [Jérôme Gravel-Niquet](http://jgn.me/).
 Start a local http server from the backbones folder:
 
     python -m SimpleHTTPServer
+    (or 'python3 -m http.server' for python 3 users)
+
     http://localhost:8000/
 
 Some browsers such as Chrome don't like you making some json requests through the 'file' protocol,
